@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/03 17:50:49 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:53:39 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,6 @@ static char *get_one_line(const char *str)
     new_string[++i] = '\0';
     return (new_string);
 }
-// char    str_trim(char *str, char *temp)
-// {
-//     int i;
-
-//     i = 0;
-//     while (temp[i] == str[i])
-//     {
-//         str++;
-//         i++;
-//     }
-//     return (*str);
-// }
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -88,42 +76,43 @@ char    *get_next_line(int fd)
     char        *line;
     char        *temp = NULL;
     static int  count = 0;
+    int         alr_read;
 
     line = (char *)malloc(sizeof(char) * BUFFER_SIZE);
     if (!line)
         return (NULL);
     if (count == 0)
         str = ft_strdup ("");
-    printf("teststring = %s\n", str);
     if (fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
-    while (read(fd, line, BUFFER_SIZE) != 0)
+    while ((alr_read = read(fd, line, BUFFER_SIZE)) != 0)
     {
         count++;
+        line[alr_read] = '\0';
         str = ft_strjoin(str, line);
         if (has_next_line(str) == -1)
             continue;
         else
         {
-            printf("str = %s\n", str);
             temp = get_one_line(str);
             str = ft_strchr(str, '\n');
-            printf("temp = %s\n", temp);
-            printf("new str = %s\n", str);
-            //break;
             return (temp);
         }
     }
-    return (temp);
+    if (alr_read == 0)
+        return (ft_strdup(str));
+    return (NULL);
 }
 
 int main(void)
 {
     char *str;
+    int i = 0;
     int fd = open("subjext.txt", O_RDONLY);
-    while ((str = get_next_line(fd)) != NULL)
+    while (i++ < 4)
     {
-        printf("main function: %s\n\n\n", str);
+        str = get_next_line(fd);
+        printf("main function: %s\n", str);
         free (str);
     }
     close (fd);
