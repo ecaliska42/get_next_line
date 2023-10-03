@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:30:36 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/03 17:50:57 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/03 19:53:40 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strdup(const char *s);
 #endif
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 3
+# define BUFFER_SIZE 100
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/03 18:53:39 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/03 19:59:49 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int has_next_line(const char *line)
     i = 0;
     while (line[i])
     {
-        if (line[i] == '\n' || line[i] == '\0')
+        if (line[i] == '\n')
             return (i);
         i++;
     }
@@ -48,7 +48,6 @@ static char *get_one_line(const char *str)
         new_string[i] = str[i];
         i++;
     }
-    //printf("i = %d\n", i);
     new_string[++i] = '\n';
     new_string[++i] = '\0';
     return (new_string);
@@ -78,16 +77,13 @@ char    *get_next_line(int fd)
     static int  count = 0;
     int         alr_read;
 
-    line = (char *)malloc(sizeof(char) * BUFFER_SIZE);
-    if (!line)
+    line = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+    if (!line || fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
-    if (count == 0)
+    if (count++ == 0)
         str = ft_strdup ("");
-    if (fd < 0 || BUFFER_SIZE <= 0)
-        return (NULL);
     while ((alr_read = read(fd, line, BUFFER_SIZE)) != 0)
     {
-        count++;
         line[alr_read] = '\0';
         str = ft_strjoin(str, line);
         if (has_next_line(str) == -1)
@@ -99,7 +95,7 @@ char    *get_next_line(int fd)
             return (temp);
         }
     }
-    if (alr_read == 0)
+    if (alr_read == 0 && str)
         return (ft_strdup(str));
     return (NULL);
 }
@@ -112,10 +108,9 @@ int main(void)
     while (i++ < 4)
     {
         str = get_next_line(fd);
-        printf("main function: %s\n", str);
+        printf("main function: \n\t%s\n", str);
         free (str);
     }
     close (fd);
-    //printf("%s", get_next_line(fd));
     return (0);
 }
