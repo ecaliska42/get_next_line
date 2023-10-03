@@ -6,18 +6,24 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:30:36 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/02 16:02:47 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:50:57 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+char	*ft_strjoin(char const *s1, char const *s2);
+char    *get_next_line(int fd);
+char	*ft_strdup(const char *s);
+
+
+
 
 #endif
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 3
 
 
 #endif
