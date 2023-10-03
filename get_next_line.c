@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/03 20:38:23 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/03 20:44:45 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,17 @@ char    *get_next_line(int fd)
     return (NULL);
 }
 
-int main(void)
-{
-    char *str;
-    int i = 0;
-    int fd = open("subjext.txt", O_RDONLY);
-    while (i++ < 8)
-    {
-        str = get_next_line(fd);
-        printf("main function: \n\t%s\n", str);
-        free (str);
-    }
-    close (fd);
-    return (0);
-}
+// int main(void)
+// {
+//     char *str;
+//     int i = 0;
+//     int fd = open("subjext.txt", O_RDONLY);
+//     while (i++ < 8)
+//     {
+//         str = get_next_line(fd);
+//         printf("main function: \n\t%s\n", str);
+//         free (str);
+//     }
+//     close (fd);
+//     return (0);
+// }
