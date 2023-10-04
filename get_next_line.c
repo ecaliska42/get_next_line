@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/03 20:44:45 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/04 16:46:25 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,14 @@ char    *get_next_line(int fd)
         alr_read = read(fd, line, BUFFER_SIZE);
         line[alr_read] = '\0';
         str = ft_strjoin(str, line);
+        free (line);
         if (!ft_strchr(str, '\n'))
             break;
         if (has_next_line(str) == -1)
             continue;
         temp = get_one_line(str);
         str = ft_strchr(str, '\n');
+        free(line);
         return (temp);
     }
     if (str)
