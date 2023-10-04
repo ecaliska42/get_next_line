@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/04 16:46:25 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:26:16 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*ft_strchr(const char *s, int c)
 
 char    *get_next_line(int fd)
 {
-    static char *str = NULL;
+    static char *str;
     char        *line;
     char        *temp = NULL;
     static int  count = 0;
@@ -82,37 +82,45 @@ char    *get_next_line(int fd)
         return (NULL);
     if (count++ == 0)
         str = ft_strdup ("");
-    while (1)
+    alr_read = 5;
+    while (ft_strchr(str, '\n') == NULL)
     {
         alr_read = read(fd, line, BUFFER_SIZE);
         line[alr_read] = '\0';
         str = ft_strjoin(str, line);
-        free (line);
-        if (!ft_strchr(str, '\n'))
-            break;
+        if (alr_read <= 0 && !str)
+        {
+            free (line);
+            free (str);
+            return (NULL);
+        }
+        //if (!ft_strchr(str, '\n') && alr_read <= 0)
+        //    break;
         if (has_next_line(str) == -1)
             continue;
         temp = get_one_line(str);
         str = ft_strchr(str, '\n');
-        free(line);
         return (temp);
     }
     if (str)
-        return (ft_strdup(str));
+    {
+        temp = ft_strdup(str);
+        str = NULL;
+        return (temp);
+    }
     return (NULL);
 }
 
-// int main(void)
-// {
-//     char *str;
-//     int i = 0;
-//     int fd = open("subjext.txt", O_RDONLY);
-//     while (i++ < 8)
-//     {
-//         str = get_next_line(fd);
-//         printf("main function: \n\t%s\n", str);
-//         free (str);
-//     }
-//     close (fd);
-//     return (0);
-// }
+int main(void)
+{
+    char *str;
+    int i = 0;
+    int fd = open("subjext.txt", O_RDONLY);
+    while ((str = get_next_line(fd)) != NULL && i++ < 9)
+    {
+        printf("main function: \n\t%s\n", str);
+        free (str);
+    }
+    close (fd);
+    return (0);
+}
