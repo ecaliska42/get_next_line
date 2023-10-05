@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/05 16:18:13 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:10:19 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 #include <unistd.h>
 #include <stdio.h>
 
-// static int has_next_line(const char *line)
-// {
-//     int i;
+static int has_next_line(const char *line)
+{
+    int i;
 
-//     i = 0;
-//     while (line[i])
-//     {
-//         if (line[i] == '\n')
-//             return (i);
-//         i++;
-//     }
-//     return (-1);
-// }
+    i = 0;
+    while (line[i])
+    {
+        if (line[i] == '\n')
+            return (i);
+        i++;
+    }
+    return (-1);
+}
 
 static char *get_one_line(const char *str)
 {
@@ -63,45 +63,49 @@ char	*ft_strchr(const char *s, int c)
 	while (*s != '\0')
 	{
 		if (*s == ch)
-			return ((char *)++s);
+			return ((char *)s);
         s++;
 	}
 	if (ch == '\0')
 		return ((char *)s);
 	return (NULL);
 }
-char    *new_str(char *str)
-{
-    char    *temp;
-    int     i;
-    int     j;
+// char    *new_str(char *str)
+// {
+//     char    *temp;
+//     int     i;
+//     int     j;
 
-    i = 0;
-    j = 0;
-    //printf("GETSINTHEFUNCTION");
-    while (str[i] != '\0')
-        i++;
-    printf("\ni = %d\n", i);
-    while (str[j] != '\n')
-        j++;
-    if (str[j] == '\n')
-        j+=1;
-    printf("\nj = %d\n", j);
-    temp = (char *)malloc ((sizeof(char) * (i - j)) + 100);
-    if (!temp)
-        return (NULL);
-    //printf("\nPASSES\n");
-    while (j < i)
-    {
-        temp[j] = str[j];
-        printf("as\n");
-        j++;
-    }
-    temp[j] = '\0';
-    printf("\nTEMP = %s\n", temp);
-    free (str);
-    return (temp);
-}
+//     i = 0;
+//     j = 0;
+//     //printf("GETSINTHEFUNCTION");
+//     //printf("\nSTR=%s\n", str);
+//     // while (str[i] != '\0')
+//     //     i++;
+//     i = ft_strlen(str);
+//     //printf("\ni = %d\n", i);
+//     while (str[j] != '\n')
+//         j++;
+//     if (str[j] == '\n')
+//         j+=1;
+//     //printf("\nj = %d\n", j);
+//     temp = (char *)malloc ((sizeof(char) * (i - j)) + 100);
+//     if (!temp)
+//         return (NULL);
+//     //printf("\nPASSES\n");
+//     i = 0;
+//     while (str[j])
+//     {
+//         temp[i] = str[j];
+//         //printf("as\n");
+//         j++;
+//         i++;
+//     }
+//     temp[i] = '\0';
+//     //printf("\nTEMP = %s\n", temp);
+//     //free (str);
+//     return (temp);
+// }
 char    *get_next_line(int fd)
 {
     static char *str;
@@ -111,33 +115,32 @@ char    *get_next_line(int fd)
 
     line = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
     if (!line || fd < 0 || BUFFER_SIZE <= 0)
-    {
-        //free (line);
         return (NULL);
-    }
     if (!str)
         str = ft_strdup("");
-    while ((alr_read = read(fd, line, BUFFER_SIZE)) > 0 && ft_strchr(str, '\n') == 0)
+    while (has_next_line(str) == -1 &&(alr_read = read(fd, line, BUFFER_SIZE)) > 0)
     {
         line[alr_read] = '\0';
         //printf("\nHEREWHILE\n");
         str = ft_strjoin(str, line);
+        //printf("\nSTRING=%s\n", str);
         //free (line);
     }
-    free (line);
+    //free (line);
     if (str && str[0] == '\0')
     {
         str = NULL;
         //printf("\nHERE1\n");
         return (NULL);
     }
-    while(str && ft_strchr(str, '\n') != NULL)
+    if(str && ft_strchr(str, '\n') != NULL)
     {
         temp = get_one_line(str);
         //printf("\nstr=%s\n", str);
         //printf("\nHERELINE\n");
         //printf("\ntemp=%s\n", temp);
-        str = ft_strchr(str, '\n');
+        //str = ft_strchr(str, '\n');
+        str = ft_strchr(str, '\n') + 1;
         //printf("\nNEWSTRING=%s\n", str);
         return (temp);
     }
@@ -164,10 +167,10 @@ int main(void)
     {
         //str = get_next_line(fd);
         printf("main function: \n\t%s\n", str);
-        //free (str);
+        free (str);
         i++;
     }
-    free (str);
+    //free (str);
     close (fd);
     return (0);
 }

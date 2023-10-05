@@ -6,14 +6,15 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:03 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/05 16:00:59 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:56:14 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "get_next_line.h"
+#include <stddef.h>
 
-static size_t	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -51,7 +52,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	str[i + j] = '\0';
-	free (s1);
+	//free (s1);
 	return (str);
 }
 
