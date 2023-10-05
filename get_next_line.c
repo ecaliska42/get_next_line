@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/04 22:52:18 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:18:13 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,45 @@ char	*ft_strchr(const char *s, int c)
 	while (*s != '\0')
 	{
 		if (*s == ch)
-			return ((char *)s);
+			return ((char *)++s);
         s++;
 	}
 	if (ch == '\0')
 		return ((char *)s);
 	return (NULL);
 }
-char    new_str(char *str)
+char    *new_str(char *str)
 {
-    
-}
+    char    *temp;
+    int     i;
+    int     j;
 
+    i = 0;
+    j = 0;
+    //printf("GETSINTHEFUNCTION");
+    while (str[i] != '\0')
+        i++;
+    printf("\ni = %d\n", i);
+    while (str[j] != '\n')
+        j++;
+    if (str[j] == '\n')
+        j+=1;
+    printf("\nj = %d\n", j);
+    temp = (char *)malloc ((sizeof(char) * (i - j)) + 100);
+    if (!temp)
+        return (NULL);
+    //printf("\nPASSES\n");
+    while (j < i)
+    {
+        temp[j] = str[j];
+        printf("as\n");
+        j++;
+    }
+    temp[j] = '\0';
+    printf("\nTEMP = %s\n", temp);
+    free (str);
+    return (temp);
+}
 char    *get_next_line(int fd)
 {
     static char *str;
@@ -93,46 +120,52 @@ char    *get_next_line(int fd)
     while ((alr_read = read(fd, line, BUFFER_SIZE)) > 0 && ft_strchr(str, '\n') == 0)
     {
         line[alr_read] = '\0';
+        //printf("\nHEREWHILE\n");
         str = ft_strjoin(str, line);
         //free (line);
     }
     free (line);
     if (str && str[0] == '\0')
     {
-        free(str);
-        printf("\nHERE1\n");
+        str = NULL;
+        //printf("\nHERE1\n");
         return (NULL);
     }
-    if (str && ft_strchr(str, '\n'))
+    while(str && ft_strchr(str, '\n') != NULL)
     {
         temp = get_one_line(str);
+        //printf("\nstr=%s\n", str);
+        //printf("\nHERELINE\n");
+        //printf("\ntemp=%s\n", temp);
         str = ft_strchr(str, '\n');
+        //printf("\nNEWSTRING=%s\n", str);
         return (temp);
     }
     if (str)
     {
         temp = get_one_line(str);
-        free (str);
-        //free (temp);
+        str = NULL;
+        //free (str);
         return (temp);
     }
-    printf("\nHERE2\n");
+    //printf("\nHERE2\n");
     return (NULL);
 }
 
 int main(void)
 {
     char *str;
-    //int i = 0;
+    int i = 0;
     int fd = open("subjext.txt", O_RDONLY);
     //str = get_next_line(fd);
     //printf("Line: %s", str);
 
-    while ((str = get_next_line(fd))!= NULL)
+    while ((str = get_next_line(fd))!= NULL || i < 8)
     {
         //str = get_next_line(fd);
         printf("main function: \n\t%s\n", str);
         //free (str);
+        i++;
     }
     free (str);
     close (fd);
