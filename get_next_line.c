@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/07 00:06:11 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/07 00:33:38 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	has_next_line(const char *line)
 	return (-1);
 }
 
-static char	*get_one_line(const char *str)
+static char	*get_one_line(char *str)
 {
 	int		i;
 	char	*new_string;
@@ -107,19 +107,20 @@ char	*get_next_line(int fd)
 	return (NULL);
 }
 
-// #include <stdio.h>
-// #include <fcntl.h>
+#include <stdio.h>
+#include <fcntl.h>
 
-// int main(void)
-// {
-//     char *str;
-//     int fd = open("subjext.txt", O_RDONLY);
+int	main(void)
+{
+	char	*str;
+	int		fd;
 
-//     while ((str = get_next_line(fd))!= NULL)
-//     {
-//         printf("main function: \n\t%s\n", str);
-//         free (str);
-//     }
-//     close (fd);
-//     return (0);
-// }
+	fd = open("subjext.txt", O_RDONLY);
+	while ((str = get_next_line(fd))!= NULL)
+	{
+		printf("main function: \n\t%s\n", str);
+		free (str);
+	}
+	close (fd);
+	return (0);
+}
