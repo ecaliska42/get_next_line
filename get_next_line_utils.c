@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:03 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/06 22:03:50 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/06 23:44:37 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ size_t	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
@@ -35,7 +36,11 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!str)
+	{
+		free((char*)s1);
+		free((char*)s2);
 		return (NULL);
+	}
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -53,9 +58,9 @@ char	*ft_strjoin(char *s1, char *s2)
 
 char	*ft_strdup(const char *s)
 {
-	char *dup;
-	int i;
-	int len;
+	char	*dup;
+	int		i;
+	int		len;
 
 	len = ft_strlen(s);
 	i = 0;
@@ -63,7 +68,10 @@ char	*ft_strdup(const char *s)
 		return (NULL);
 	dup = (char *)malloc(sizeof(char) * (len + 1));
 	if (!dup)
+	{
+		free ((char*) s);
 		return (NULL);
+	}
 	while (s[i])
 	{
 		dup[i] = s[i];
@@ -71,4 +79,35 @@ char	*ft_strdup(const char *s)
 	}
 	dup[i] = '\0';
 	return (dup);
+}
+
+char	*new_str(char *str)
+{
+	char	*temp;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	i = ft_strlen(str);
+	while (str[j] != '\n')
+		j++;
+	if (str[j] == '\n')
+		j += 1;
+	temp = (char *)malloc((sizeof(char) * (i - j)));
+	if (!temp)
+	{
+		free(str);
+		return (NULL);
+	}
+	i = 0;
+	while (str[j])
+	{
+		temp[i] = str[j];
+		j++;
+		i++;
+	}
+	temp[i] = '\0';
+	free (str);
+	return (temp);
 }
