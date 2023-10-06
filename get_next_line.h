@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:30:36 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/05 18:09:42 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:37:54 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *str);
 #endif
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 100
 
 
 #endif

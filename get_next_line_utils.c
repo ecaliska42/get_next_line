@@ -6,13 +6,14 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:03 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/05 16:56:14 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:56:36 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "get_next_line.h"
 #include <stddef.h>
+#include <stdio.h>
 
 size_t	ft_strlen(const char *str)
 {
@@ -36,11 +37,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1||!s2)
 		return (NULL);
 	str = (char *)malloc(sizeof(char) * (ft_strlen(s1)+ft_strlen(s2)) + 1);
+	//printf("\nSTRJOIN=%i\n", i);
 	if (!str)
-	{
-		//free (str);
 		return (NULL);
-	}
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -52,7 +51,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	str[i + j] = '\0';
-	//free (s1);
+	free ((char *)s1);
 	return (str);
 }
 
@@ -60,22 +59,21 @@ char	*ft_strdup(const char *s)
 {
 	char	*dup;
 	int		i;
-
+	int		len;
+	
+	len = ft_strlen(s);
 	i = 0;
 	if (!s)
 		return (NULL);
-	dup = (char *)malloc(sizeof(char) * (ft_strlen(s)+1));
+	dup = (char *)malloc(sizeof(char) * (len + 1));
+	//printf("\nSTRDUP=%i\n", len);
 	if (!dup)
-	{
-		//free (dup);
 		return (NULL);
-	}
 	while (s[i])
 	{
 		dup[i] = s[i];
 		i++;
 	}
 	dup[i] = '\0';
-	//free (dup);
 	return (dup);
 }
