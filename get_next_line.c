@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/06 20:58:59 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/06 21:03:46 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,14 @@ char    *get_next_line(int fd)
         str = ft_strjoin(str, line);
         //free (line);
     }
+    if (alr_read < 0)
+    {
+        free(str);
+        free (line);
+        str = NULL;
+        return (NULL);
+    }
     free (line);
-    // if (alr_read < 0)
-    // {
-    //     free(str);
-    //     return (NULL);
-    // }
     if (str && str[0] == '\0')
     {
         free (str);
