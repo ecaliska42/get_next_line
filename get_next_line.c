@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/07 15:36:09 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/07 15:40:45 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,9 @@ char	*get_next_line(int fd)
 	if (alr_read < 0)
 	{
 		free(str);
-		free(temp);
 		str = NULL;
-		temp = NULL;
 		return (NULL);
 	}
-	// if (str && str[0] == '\0')
-	// {
-	// 	free(str);
-	// 	str = NULL;
-	// 	return (str);
-	// }
 	if (str && has_next_line(str) != -1)
 	{
 		temp = get_one_line(str);
@@ -113,20 +105,20 @@ char	*get_next_line(int fd)
 	return (NULL);
 }
 
-#include <stdio.h>
-#include <fcntl.h>
+// #include <stdio.h>
+// #include <fcntl.h>
 
-int	main(void)
-{
-	char	*str;
-	int		fd;
+// int	main(void)
+// {
+// 	char	*str;
+// 	int		fd;
 
-	fd = open("subjext.txt", O_RDONLY);
-	while ((str = get_next_line(fd))!= NULL)
-	{
-		printf("main function: \n\t%s\n", str);
-		free (str);
-	}
-	close (fd);
-	return (0);
-}
+// 	fd = open("subjext.txt", O_RDONLY);
+// 	while ((str = get_next_line(fd))!= NULL)
+// 	{
+// 		printf("main function: \n\t%s\n", str);
+// 		free (str);
+// 	}
+// 	close (fd);
+// 	return (0);
+// }
