@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/07 00:33:38 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/07 15:36:09 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,30 +72,36 @@ char	*get_next_line(int fd)
 			break ;
 		line[alr_read] = '\0';
 		str = ft_strjoin(str, line);
+		if (!str)
+		{
+			free (str);
+			str = NULL;
+			return (NULL);
+		}
 	}
 	free(line);
+	line = NULL;
 	if (alr_read < 0)
 	{
 		free(str);
 		free(temp);
 		str = NULL;
 		temp = NULL;
-		line = NULL;
 		return (NULL);
 	}
-	if (str && str[0] == '\0')
-	{
-		free(str);
-		str = NULL;
-		return (str);
-	}
+	// if (str && str[0] == '\0')
+	// {
+	// 	free(str);
+	// 	str = NULL;
+	// 	return (str);
+	// }
 	if (str && has_next_line(str) != -1)
 	{
 		temp = get_one_line(str);
 		str = new_str(str);
 		return (temp);
 	}
-	if (str)
+	else if (str && str[0] != '\0')
 	{
 		temp = ft_strdup(str);
 		free(str);
