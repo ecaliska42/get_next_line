@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/07 16:08:22 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/07 18:51:00 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,9 @@ char	*get_next_line(int fd)
 	char		*temp;
 	int			alr_read;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
 	line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!line)
-		return (NULL);
+	if (!line || fd < 0 || BUFFER_SIZE <= 0)
+		return (free (line), NULL);
 	if (!str)
 		str = ft_strdup("");
 	while (has_next_line(str) == -1)
@@ -72,10 +70,9 @@ char	*get_next_line(int fd)
 		line[alr_read] = '\0';
 		str = ft_strjoin(str, line);
 		if (!str)
-			return (free (str), NULL);
+			return (free (line), free (str), NULL);
 	}
 	free(line);
-	line = NULL;
 	if (alr_read < 0)
 	{
 		free(str);
