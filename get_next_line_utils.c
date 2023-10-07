@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:03 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/07 15:33:14 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:03:01 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!str)
-	{
-		free((char*)s1);
-		s1 = NULL;
-		return (NULL);
-	}
+		return (free ((char *)s1), NULL);
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -96,10 +92,7 @@ char	*new_str(char *str)
 		j += 1;
 	temp = (char *)malloc((sizeof(char) * (i - j)));
 	if (!temp)
-	{
-		free(str);
-		return (NULL);
-	}
+		return (free ((char*)str), NULL);
 	i = 0;
 	while (str[j])
 	{

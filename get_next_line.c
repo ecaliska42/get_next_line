@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/07 15:40:45 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:08:22 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*get_next_line(int fd)
 	char		*temp;
 	int			alr_read;
 
-	temp = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -73,11 +72,7 @@ char	*get_next_line(int fd)
 		line[alr_read] = '\0';
 		str = ft_strjoin(str, line);
 		if (!str)
-		{
-			free (str);
-			str = NULL;
-			return (NULL);
-		}
+			return (free (str), NULL);
 	}
 	free(line);
 	line = NULL;
@@ -119,6 +114,7 @@ char	*get_next_line(int fd)
 // 		printf("main function: \n\t%s\n", str);
 // 		free (str);
 // 	}
+// 	//free (str);
 // 	close (fd);
 // 	return (0);
 // }
