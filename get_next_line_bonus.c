@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:58:12 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/08 17:15:56 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/08 17:23:53 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static char	*ft_temptest(char **str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str[2048];
+	static char	*str[1024];
 	char		*line;
 	int			alr_read;
 
