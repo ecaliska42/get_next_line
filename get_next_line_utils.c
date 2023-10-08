@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:03 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/07 17:50:38 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:27:04 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*new_str(char *str)
 		j++;
 	if (str[j] == '\n')
 		j += 1;
-	temp = (char *)malloc((sizeof(char) * (i - j)));
+	temp = (char *)malloc((sizeof(char) * (i - j + 1)));
 	if (!temp)
 		return (free ((char *)str), NULL);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/07 18:51:00 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:45:57 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,40 @@ static char	*get_one_line(char *str)
 	return (new_string);
 }
 
+char	*freeing(char **str)
+{
+	free (*str);
+	*str = NULL;
+	return (NULL);
+}
+
+static char	*temptest(char **str)
+{
+	char	*temp;
+
+	temp = NULL;
+	if (has_next_line(*str) != -1)
+	{
+		temp = get_one_line(*str);
+		*str = new_str(*str);
+		return (temp);
+	}
+	else if ((*str)[0] != '\0')
+	{
+		temp = ft_strdup(*str);
+		free (*str);
+		*str = NULL;
+		return (temp);
+	}
+	free (*str);
+	*str = NULL;
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*str = NULL;
 	char		*line;
-	char		*temp;
 	int			alr_read;
 
 	line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -70,31 +99,14 @@ char	*get_next_line(int fd)
 		line[alr_read] = '\0';
 		str = ft_strjoin(str, line);
 		if (!str)
-			return (free (line), free (str), NULL);
+			return (freeing (&line));
 	}
 	free(line);
 	if (alr_read < 0)
-	{
-		free(str);
-		str = NULL;
-		return (NULL);
-	}
-	if (str && has_next_line(str) != -1)
-	{
-		temp = get_one_line(str);
-		str = new_str(str);
-		return (temp);
-	}
-	else if (str && str[0] != '\0')
-	{
-		temp = ft_strdup(str);
-		free(str);
-		str = NULL;
-		return (temp);
-	}
-	free(str);
-	str = NULL;
-	return (NULL);
+		return (freeing(&str));
+	if (str)
+		return (temptest(&str));
+	return (freeing(&str));
 }
 
 // #include <stdio.h>
@@ -106,12 +118,11 @@ char	*get_next_line(int fd)
 // 	int		fd;
 
 // 	fd = open("subjext.txt", O_RDONLY);
-// 	while ((str = get_next_line(fd))!= NULL)
+// 	while ((str = get_next_line(fd)) != NULL)
 // 	{
 // 		printf("main function: \n\t%s\n", str);
 // 		free (str);
 // 	}
-// 	//free (str);
 // 	close (fd);
 // 	return (0);
 // }
