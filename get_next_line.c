@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/08 16:48:27 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:49:06 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*get_one_line(char *str)
 	return (new_string);
 }
 
-char	*freeing(char **str)
+static char	*freeing(char **str)
 {
 	free (*str);
 	*str = NULL;

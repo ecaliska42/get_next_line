@@ -6,13 +6,13 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:03 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/08 16:27:04 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:49:53 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+static size_t	ft_strlen(const char *str)
 {
 	int	i;
 
