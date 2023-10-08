@@ -6,7 +6,7 @@
 /*   By: ecaliska <ecaliska@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 19:29:06 by ecaliska          #+#    #+#             */
-/*   Updated: 2023/10/08 16:45:57 by ecaliska         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:48:27 by ecaliska         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*freeing(char **str)
 	return (NULL);
 }
 
-static char	*temptest(char **str)
+static char	*ft_temptest(char **str)
 {
 	char	*temp;
 
@@ -105,7 +105,7 @@ char	*get_next_line(int fd)
 	if (alr_read < 0)
 		return (freeing(&str));
 	if (str)
-		return (temptest(&str));
+		return (ft_temptest(&str));
 	return (freeing(&str));
 }
 
